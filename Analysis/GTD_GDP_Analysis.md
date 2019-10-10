@@ -13,7 +13,7 @@ del terrorRaw['Unnamed: 0']
 mergedData = pd.read_csv('GTD_Data/gtd_gdp_final_analysis.csv')
 del mergedData['Unnamed: 0']
 mergedData.dropna()
-mergedData.head(12)
+mergedData.head()
 ```
 
 
@@ -40,6 +40,7 @@ mergedData.head(12)
       <th>Year</th>
       <th>Country</th>
       <th>Total Attacks</th>
+      <th>Total Attacks Count</th>
       <th>Casualities</th>
       <th>GDP</th>
     </tr>
@@ -49,6 +50,7 @@ mergedData.head(12)
       <th>0</th>
       <td>2008</td>
       <td>Australia</td>
+      <td>0.006536</td>
       <td>3.0</td>
       <td>0.0</td>
       <td>3.657944</td>
@@ -57,6 +59,7 @@ mergedData.head(12)
       <th>1</th>
       <td>2008</td>
       <td>China</td>
+      <td>0.043574</td>
       <td>20.0</td>
       <td>189.0</td>
       <td>9.654289</td>
@@ -65,6 +68,7 @@ mergedData.head(12)
       <th>2</th>
       <td>2008</td>
       <td>Colombia</td>
+      <td>0.289767</td>
       <td>133.0</td>
       <td>323.0</td>
       <td>3.257048</td>
@@ -73,6 +77,7 @@ mergedData.head(12)
       <th>3</th>
       <td>2008</td>
       <td>Georgia</td>
+      <td>0.071897</td>
       <td>33.0</td>
       <td>75.0</td>
       <td>2.418572</td>
@@ -81,65 +86,10 @@ mergedData.head(12)
       <th>4</th>
       <td>2008</td>
       <td>Iraq</td>
+      <td>2.409639</td>
       <td>1106.0</td>
       <td>9414.0</td>
       <td>8.228107</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2008</td>
-      <td>Pakistan</td>
-      <td>568.0</td>
-      <td>2941.0</td>
-      <td>1.701405</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>2008</td>
-      <td>Philippines</td>
-      <td>276.0</td>
-      <td>601.0</td>
-      <td>4.152757</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>2008</td>
-      <td>Somalia</td>
-      <td>172.0</td>
-      <td>966.0</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>2008</td>
-      <td>Ukraine</td>
-      <td>1.0</td>
-      <td>2.0</td>
-      <td>2.304029</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>2008</td>
-      <td>United Kingdom</td>
-      <td>39.0</td>
-      <td>8.0</td>
-      <td>-0.345861</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>2008</td>
-      <td>United States</td>
-      <td>18.0</td>
-      <td>15.0</td>
-      <td>-0.136580</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>2008</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>4.231600</td>
     </tr>
   </tbody>
 </table>
@@ -151,7 +101,7 @@ mergedData.head(12)
 
 
 ```python
-sns.regplot(x="Total Attacks", y="GDP", data=mergedData)
+sns.regplot(x="Total Attacks", y="GDP", data=mergedData, scatter_kws={"color": "black"}, line_kws={"color": "red"})
 # plt.scatter(mergedData['Total Attacks'], mergedData['GDP'])
 fig = plt.gcf()
 fig.set_size_inches(10,8)
@@ -212,7 +162,8 @@ ax1.plot(DF['Year'], DF['GDP'], label='GDP')
 ax1.grid(True)
 ax1.legend()
 ax1.set_xlim(2008, 2017)
-ax1.set_xlabel('Australia over 10 Years', fontsize = 20)
+ax1.set_xlabel('Australia over 10 Years', fontsize = 15)
+ax1.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 
@@ -222,7 +173,8 @@ ax2.plot(DF['Year'], DF['GDP'], label='GDP')
 ax2.grid(True)
 ax2.legend()
 ax2.set_xlim(2008, 2017)
-ax2.set_xlabel('China over 10 Years', fontsize = 20)
+ax2.set_xlabel('China over 10 Years', fontsize = 15)
+ax2.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 
@@ -232,7 +184,8 @@ ax3.plot(DF['Year'], DF['GDP'], label='GDP')
 ax3.grid(True)
 ax3.legend()
 ax3.set_xlim(2008, 2017)
-ax3.set_xlabel('Georgia over 10 Years', fontsize = 20)
+ax3.set_xlabel('Georgia over 10 Years', fontsize = 15)
+ax3.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 
@@ -242,7 +195,8 @@ ax4.plot(DF['Year'], DF['GDP'], label='GDP')
 ax4.grid(True)
 ax4.legend()
 ax4.set_xlim(2008, 2017)
-ax4.set_xlabel('Pakistan over 10 Years', fontsize = 20)
+ax4.set_xlabel('Pakistan over 10 Years', fontsize = 15)
+ax5.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 
@@ -254,7 +208,8 @@ ax5.plot(DF['Year'], DF['GDP'], label='GDP')
 ax5.grid(True)
 ax5.legend()
 ax5.set_xlim(2008, 2017)
-ax5.set_xlabel('Iraq over 10 Years', fontsize = 20)
+ax5.set_xlabel('Iraq over 10 Years', fontsize = 15)
+ax5.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 
@@ -264,7 +219,8 @@ ax6.plot(DF['Year'], DF['GDP'], label='GDP')
 ax6.grid(True)
 ax6.legend()
 ax6.set_xlim(2008, 2017)
-ax6.set_xlabel('Ukraine over 10 Years', fontsize = 20)
+ax6.set_xlabel('Ukraine over 10 Years', fontsize = 15)
+ax6.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 
@@ -274,7 +230,8 @@ ax7.plot(DF['Year'], DF['GDP'], label='GDP')
 ax7.grid(True)
 ax7.legend()
 ax7.set_xlim(2008, 2017)
-ax7.set_xlabel('United Kingdom over 10 Years', fontsize = 20)
+ax7.set_xlabel('United Kingdom over 10 Years', fontsize = 15)
+ax7.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 
@@ -284,7 +241,8 @@ ax8.plot(DF['Year'], DF['GDP'], label='GDP')
 ax8.grid(True)
 ax8.legend()
 ax8.set_xlim(2008, 2017)
-ax8.set_xlabel('United States over 10 Years', fontsize = 20)
+ax8.set_xlabel('United States over 10 Years', fontsize = 15)
+ax8.set_ylabel('Attacks & GDP (%)', fontsize = 15)
 fig = plt.gcf()
 fig.set_size_inches(20,10)
 ```

@@ -2083,7 +2083,7 @@ gdpRaw.head()
 ```python
 groupData = terrorRaw[["Year", "Country", "Casualities"]]
 #groupData = groupData.groupby(['Year','Country'])['Casualities'].sum().to_frame()
-groupData = groupData.groupby(['Year','Country']).agg({'Country': 'count', 'Casualities': 'sum'}).rename(columns={'Country': 'Total Attacks'})
+groupData = groupData.groupby(['Year','Country']).agg({'Country': 'count', 'Casualities': 'sum'}).rename(columns={'Country': 'Total Attacks Count'})
 groupData = groupData.reset_index()
 groupData.head()
 ```
@@ -2111,7 +2111,7 @@ groupData.head()
       <th></th>
       <th>Year</th>
       <th>Country</th>
-      <th>Total Attacks</th>
+      <th>Total Attacks Count</th>
       <th>Casualities</th>
     </tr>
   </thead>
@@ -2150,6 +2150,89 @@ groupData.head()
       <td>Iraq</td>
       <td>1106</td>
       <td>9414.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+totCount = groupData["Total Attacks Count"].sum()
+percOfCountry = (groupData["Total Attacks Count"]/totCount) * 100
+groupData["Total Attacks"] = percOfCountry
+groupData.head()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>Country</th>
+      <th>Total Attacks Count</th>
+      <th>Casualities</th>
+      <th>Total Attacks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2008</td>
+      <td>Australia</td>
+      <td>3</td>
+      <td>0.0</td>
+      <td>0.006536</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2008</td>
+      <td>China</td>
+      <td>20</td>
+      <td>189.0</td>
+      <td>0.043574</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2008</td>
+      <td>Colombia</td>
+      <td>133</td>
+      <td>323.0</td>
+      <td>0.289767</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2008</td>
+      <td>Georgia</td>
+      <td>33</td>
+      <td>75.0</td>
+      <td>0.071897</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2008</td>
+      <td>Iraq</td>
+      <td>1106</td>
+      <td>9414.0</td>
+      <td>2.409639</td>
     </tr>
   </tbody>
 </table>
@@ -2236,8 +2319,9 @@ mergedData.head()
       <th></th>
       <th>Year</th>
       <th>Country</th>
-      <th>Total Attacks</th>
+      <th>Total Attacks Count</th>
       <th>Casualities</th>
+      <th>Total Attacks</th>
       <th>Country Name</th>
       <th>GDP</th>
     </tr>
@@ -2249,6 +2333,7 @@ mergedData.head()
       <td>Australia</td>
       <td>3.0</td>
       <td>0.0</td>
+      <td>0.006536</td>
       <td>Australia</td>
       <td>3.657944</td>
     </tr>
@@ -2258,6 +2343,7 @@ mergedData.head()
       <td>China</td>
       <td>20.0</td>
       <td>189.0</td>
+      <td>0.043574</td>
       <td>China</td>
       <td>9.654289</td>
     </tr>
@@ -2267,6 +2353,7 @@ mergedData.head()
       <td>Colombia</td>
       <td>133.0</td>
       <td>323.0</td>
+      <td>0.289767</td>
       <td>Colombia</td>
       <td>3.257048</td>
     </tr>
@@ -2276,6 +2363,7 @@ mergedData.head()
       <td>Georgia</td>
       <td>33.0</td>
       <td>75.0</td>
+      <td>0.071897</td>
       <td>Georgia</td>
       <td>2.418572</td>
     </tr>
@@ -2285,6 +2373,7 @@ mergedData.head()
       <td>Iraq</td>
       <td>1106.0</td>
       <td>9414.0</td>
+      <td>2.409639</td>
       <td>Iraq</td>
       <td>8.228107</td>
     </tr>
@@ -2297,7 +2386,7 @@ mergedData.head()
 
 ```python
 mergedData = mergedData.dropna(axis='columns', how='all')
-mergedData = mergedData[['Year', 'Country', 'Total Attacks', 'Casualities', 'GDP']]
+mergedData = mergedData[['Year', 'Country', 'Total Attacks', 'Total Attacks Count', 'Casualities', 'GDP']]
 mergedData.head()
 ```
 
@@ -2325,6 +2414,7 @@ mergedData.head()
       <th>Year</th>
       <th>Country</th>
       <th>Total Attacks</th>
+      <th>Total Attacks Count</th>
       <th>Casualities</th>
       <th>GDP</th>
     </tr>
@@ -2334,6 +2424,7 @@ mergedData.head()
       <th>0</th>
       <td>2008</td>
       <td>Australia</td>
+      <td>0.006536</td>
       <td>3.0</td>
       <td>0.0</td>
       <td>3.657944</td>
@@ -2342,6 +2433,7 @@ mergedData.head()
       <th>1</th>
       <td>2008</td>
       <td>China</td>
+      <td>0.043574</td>
       <td>20.0</td>
       <td>189.0</td>
       <td>9.654289</td>
@@ -2350,6 +2442,7 @@ mergedData.head()
       <th>2</th>
       <td>2008</td>
       <td>Colombia</td>
+      <td>0.289767</td>
       <td>133.0</td>
       <td>323.0</td>
       <td>3.257048</td>
@@ -2358,6 +2451,7 @@ mergedData.head()
       <th>3</th>
       <td>2008</td>
       <td>Georgia</td>
+      <td>0.071897</td>
       <td>33.0</td>
       <td>75.0</td>
       <td>2.418572</td>
@@ -2366,6 +2460,7 @@ mergedData.head()
       <th>4</th>
       <td>2008</td>
       <td>Iraq</td>
+      <td>2.409639</td>
       <td>1106.0</td>
       <td>9414.0</td>
       <td>8.228107</td>
